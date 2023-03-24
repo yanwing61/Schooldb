@@ -1,7 +1,20 @@
-﻿
+﻿@model IEnumerable<Schooldb.Models.Teacher>
 @{
     ViewBag.Title = "List";
 }
 
-<h2>List</h2>
+<div id="containerlist">
+    <h2>List of Teachers</h2>
 
+    <form action="/Teacher/List" method="GET">
+        <input type="text" name="SearchKey" autocomplete="off" placeholder="Search with teancher's name"/>
+        <input type="submit" value="Search" />
+    </form>
+
+    @foreach (var teacher in Model)
+    {
+        <div class="listitem row">
+            <div class="col-md-12" id="namelist"><a href="/Teacher/Show/@teacher.TeacherId">@teacher.TeacherFname @teacher.TeacherLname</a></div>
+        </div>
+    }
+</div>
