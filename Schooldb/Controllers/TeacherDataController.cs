@@ -35,7 +35,7 @@ namespace Schooldb.Controllers
             MySqlCommand cmd = Conn.CreateCommand();
 
             //SQL QUERY
-            cmd.CommandText = "Select * from teachers where lower(teacherfname) like lower(@key) or lower(teacherlname) like lower(@key) or lower(concat(teacherfname, ' ', teacherlname)) like lower(@key)";
+            cmd.CommandText = "Select * FROM teachers WHERE lower(teacherfname) like lower(@key) or lower(teacherlname) like lower(@key) or lower(concat(teacherfname, ' ', teacherlname)) like lower(@key)";
 
             cmd.Parameters.AddWithValue("@key", "%" + SearchKey + "%");
             cmd.Prepare();
@@ -53,18 +53,22 @@ namespace Schooldb.Controllers
                 int TeacherId = Convert.ToInt32(ResultSet["teacherid"]);
                 string TeacherFname = ResultSet["teacherfname"].ToString();
                 string TeacherLname = ResultSet["teacherlname"].ToString();
-                string TeacherEmployeeNumber = ResultSet["employeenumber"].ToString();
-                DateTime TeacherHiredate = (DateTime)ResultSet["hiredate"];
-                decimal TeacherSalary = (decimal)ResultSet["salary"];
+                //string TeacherEmployeeNumber = ResultSet["employeenumber"].ToString();
+                //DateTime TeacherHiredate = (DateTime)ResultSet["hiredate"];
+                //decimal TeacherSalary = (decimal)ResultSet["salary"];
+                //string ClassCode = ResultSet["classcode"].ToString();
+                //string ClassName = ResultSet["classname"].ToString();
 
 
                 Teacher NewTeacher = new Teacher();
                 NewTeacher.TeacherId = TeacherId;
                 NewTeacher.TeacherFname = TeacherFname;
                 NewTeacher.TeacherLname = TeacherLname;
-                NewTeacher.TeacherEmployeeNumber = TeacherEmployeeNumber;
-                NewTeacher.TeacherHiredate = TeacherHiredate;
-                NewTeacher.TeacherSalary = TeacherSalary;
+                //NewTeacher.TeacherEmployeeNumber = TeacherEmployeeNumber;
+                //NewTeacher.TeacherHiredate = TeacherHiredate;
+                //NewTeacher.TeacherSalary = TeacherSalary;
+                //NewTeacher.ClassCode = ClassCode;
+                //NewTeacher.ClassName = ClassName;
 
                 //Add the Teacher Name to the List
                 Teachers.Add(NewTeacher);
@@ -103,7 +107,7 @@ namespace Schooldb.Controllers
             MySqlCommand cmd = Conn.CreateCommand();
 
             //SQL QUERY
-            cmd.CommandText = "Select * from teachers WHERE teacherid =@id";
+            cmd.CommandText = "Select * FROM teachers LEFT JOIN classes ON teachers.teacherid=classes.teacherid WHERE teachers.teacherid=@id";
             cmd.Parameters.AddWithValue("@id", id);
             cmd.Prepare();
 
@@ -123,6 +127,8 @@ namespace Schooldb.Controllers
                 string TeacherEmployeeNumber = ResultSet["employeenumber"].ToString();
                 DateTime TeacherHiredate = (DateTime)ResultSet["hiredate"];
                 decimal TeacherSalary = (decimal)ResultSet["salary"];
+                string ClassCode = ResultSet["classcode"].ToString();
+                string ClassName = ResultSet["classname"].ToString();
 
                 NewTeacher.TeacherId = TeacherId;
                 NewTeacher.TeacherFname = TeacherFname;
@@ -130,6 +136,8 @@ namespace Schooldb.Controllers
                 NewTeacher.TeacherEmployeeNumber = TeacherEmployeeNumber;
                 NewTeacher.TeacherHiredate = TeacherHiredate;
                 NewTeacher.TeacherSalary = TeacherSalary;
+                NewTeacher.ClassCode = ClassCode;
+                NewTeacher.ClassName = ClassName;
 
                 //Add the Teacher Name to the List
                 Teachers.Add(NewTeacher);

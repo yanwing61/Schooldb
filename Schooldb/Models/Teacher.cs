@@ -13,5 +13,7 @@ namespace Schooldb.Models
         public string TeacherEmployeeNumber;
         public DateTime TeacherHiredate;
         public decimal TeacherSalary;
+        public string ClassCode;
+        public string ClassName;
     }
 }
