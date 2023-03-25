@@ -6,6 +6,7 @@ using System.Net.Http;
 using System.Web.Http;
 using Schooldb.Models;
 using MySql.Data.MySqlClient;
+using Microsoft.Ajax.Utilities;
 
 namespace Schooldb.Controllers
 {
@@ -95,8 +96,6 @@ namespace Schooldb.Controllers
         [HttpGet]
         public Teacher FindTeachers(int id)
         {
-            Teacher NewTeacher = new Teacher();
-
             //Create an instance of a connection
             MySqlConnection Conn = School.AccessDatabase();
 
@@ -117,6 +116,17 @@ namespace Schooldb.Controllers
             //Create an empty list of Teachers
             List<Teacher> Teachers = new List<Teacher> { };
 
+
+            Teacher NewVar = new Teacher();
+            NewVar.TeacherId = Teachers[0].TeacherId;
+            NewVar.TeacherFname = Teachers[0].TeacherFname;
+            NewVar.TeacherLname = Teachers[0].TeacherLname;
+            NewVar.TeacherEmployeeNumber = Teachers[0].TeacherEmployeeNumber;
+            NewVar.TeacherHiredate = Teachers[0].TeacherHiredate;
+            NewVar.TeacherSalary = Teachers[0].TeacherSalary;
+            NewVar.ClassCode = Teachers[0].ClassCode;
+            NewVar.ClassName = Teachers[0].ClassName;
+
             //Loop Through Each Row the Result Set
             while (ResultSet.Read())
             {
@@ -130,6 +140,7 @@ namespace Schooldb.Controllers
                 string ClassCode = ResultSet["classcode"].ToString();
                 string ClassName = ResultSet["classname"].ToString();
 
+                Teacher NewTeacher = new Teacher();
                 NewTeacher.TeacherId = TeacherId;
                 NewTeacher.TeacherFname = TeacherFname;
                 NewTeacher.TeacherLname = TeacherLname;
@@ -143,11 +154,16 @@ namespace Schooldb.Controllers
                 Teachers.Add(NewTeacher);
             }
 
+            if (Teachers.Count > 1)
+            {
+                NewVar.ClassName = Teachers[0].ClassName + Teachers[1].ClassName;
+            }
+
             //Close the connection between the MySQL Database and the WebServer
             Conn.Close();
 
             //Return the final list of Teacher names
-            return NewTeacher;
+            return NewVar;
 
 
 

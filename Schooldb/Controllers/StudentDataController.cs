@@ -47,16 +47,18 @@ namespace Schooldb.Controllers
             while (ResultSet.Read())
             {
                 //Access Column information by the DB column name as an index
-                int StudentId = Convert.ToInt32(ResultSet["Studentid"]);
-                string StudentFname = ResultSet["Studentfname"].ToString();
-                string StudentLname = ResultSet["Studentlname"].ToString();
-
+                int StudentId = Convert.ToInt32(ResultSet["studentid"]);
+                string StudentFname = ResultSet["studentfname"].ToString();
+                string StudentLname = ResultSet["studentlname"].ToString();
+                string StudentNumber = ResultSet["studentnumber"].ToString();
+                DateTime EnrolDate = (DateTime)ResultSet["enroldate"];
 
                 Student NewStudent = new Student();
                 NewStudent.StudentId = StudentId;
                 NewStudent.StudentFname = StudentFname;
                 NewStudent.StudentLname = StudentLname;
-
+                NewStudent.StudentNumber = StudentNumber;
+                NewStudent.EnrolDate = EnrolDate;
 
                 //Add the Student Name to the List
                 Students.Add(NewStudent);
@@ -109,9 +111,9 @@ namespace Schooldb.Controllers
             while (ResultSet.Read())
             {
                 //Access Column information by the DB column name as an index
-                int StudentId = Convert.ToInt32(ResultSet["Studentid"]);
-                string StudentFname = ResultSet["Studentfname"].ToString();
-                string StudentLname = ResultSet["Studentlname"].ToString();
+                int StudentId = Convert.ToInt32(ResultSet["studentid"]);
+                string StudentFname = ResultSet["studentfname"].ToString();
+                string StudentLname = ResultSet["studentlname"].ToString();
                 string StudentNumber = ResultSet["studentnumber"].ToString();
                 DateTime EnrolDate = (DateTime)ResultSet["enroldate"];
 
@@ -136,4 +138,5 @@ namespace Schooldb.Controllers
 
 
         }
+    }
 }
