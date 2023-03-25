@@ -117,16 +117,7 @@ namespace Schooldb.Controllers
             List<Teacher> Teachers = new List<Teacher> { };
 
 
-            Teacher NewVar = new Teacher();
-            NewVar.TeacherId = Teachers[0].TeacherId;
-            NewVar.TeacherFname = Teachers[0].TeacherFname;
-            NewVar.TeacherLname = Teachers[0].TeacherLname;
-            NewVar.TeacherEmployeeNumber = Teachers[0].TeacherEmployeeNumber;
-            NewVar.TeacherHiredate = Teachers[0].TeacherHiredate;
-            NewVar.TeacherSalary = Teachers[0].TeacherSalary;
-            NewVar.ClassCode = Teachers[0].ClassCode;
-            NewVar.ClassName = Teachers[0].ClassName;
-
+            
             //Loop Through Each Row the Result Set
             while (ResultSet.Read())
             {
@@ -154,10 +145,24 @@ namespace Schooldb.Controllers
                 Teachers.Add(NewTeacher);
             }
 
+            //Create new variable to store the first item of the Teachers array
+            Teacher NewVar = new Teacher();
+            NewVar.TeacherId = Teachers[0].TeacherId;
+            NewVar.TeacherFname = Teachers[0].TeacherFname;
+            NewVar.TeacherLname = Teachers[0].TeacherLname;
+            NewVar.TeacherEmployeeNumber = Teachers[0].TeacherEmployeeNumber;
+            NewVar.TeacherHiredate = Teachers[0].TeacherHiredate;
+            NewVar.TeacherSalary = Teachers[0].TeacherSalary;
+            NewVar.ClassCode = Teachers[0].ClassCode;
+            NewVar.ClassName = Teachers[0].ClassName;
+
+            //check if the teacher has teach one or more courses
             if (Teachers.Count > 1)
             {
-                NewVar.ClassName = Teachers[0].ClassName + Teachers[1].ClassName;
+                NewVar.ClassCode = Teachers[0].ClassCode + " , " + Teachers[1].ClassCode;
+                NewVar.ClassName = Teachers[0].ClassName + " , " + Teachers[1].ClassName;
             }
+
 
             //Close the connection between the MySQL Database and the WebServer
             Conn.Close();

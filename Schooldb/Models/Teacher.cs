@@ -15,5 +15,6 @@ namespace Schooldb.Models
         public decimal TeacherSalary;
         public string ClassCode;
         public string ClassName;
+
     }
 }

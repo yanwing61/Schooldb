@@ -1,12 +1,17 @@
-﻿body {
+﻿html {
+    font-family:  'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: burlywood;
+}
+
+body {
     padding-top: 50px;
     padding-bottom: 20px;
 }
 
 /* Set padding to keep content from hitting the edges */
 .body-content {
-    padding-left: 30px;
-    padding-right: 30px;
+    padding-left: 50px;
+    padding-right: 50px;
 }
 
 /* Set width on the form input elements since they're 100% wide by default */
@@ -20,4 +25,30 @@ textarea {
 .navbar-inverse .navbar-toggle:focus {
     background-color: aquamarine;
     border-color: #000000;
+}
+
+h2{
+    color: darkorange;
+    border-bottom: dashed;
+    border-color: orange;
+}
+
+p{
+    color: chocolate;
+}
+
+footer p{
+    font-size: 10px;
+}
+
+a{
+    color: brown;
+}
+
+a:hover{
+    color:aquamarine;
+}
+
+a:visited{
+    color: purple;
 }
