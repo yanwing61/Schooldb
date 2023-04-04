@@ -33,5 +33,29 @@ namespace Schooldb.Controllers
             return View(NewTeacher);
         }
 
+        //GET: Teacher/New 
+        public ActionResult New()
+        {
+            return View();
+        }
+
+
+        //POST: Teacher/Create 
+        [HttpPost]
+        public ActionResult Create(string TeacherFname, string TeacherLname)
+        {
+            TeacherDataController controller = new TeacherDataController();
+
+            Teacher NewTeacher = new Teacher();
+
+            NewTeacher.TeacherFname = TeacherFname;
+
+            NewTeacher.TeacherLname = TeacherLname;
+            
+            controller.AddTeacher(NewTeacher);
+
+            return RedirectToAction("List");
+        }
+
     }
 }

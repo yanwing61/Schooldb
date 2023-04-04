@@ -6,8 +6,11 @@
 <div id="containerlist">
     <h2>List of Teachers</h2>
 
+    <p>There are @Model.Count() teachers.</p>
+    <a href="/Teacher/New">Add a new teacher</a>
+
     <form action="/Teacher/List" method="GET">
-        <input type="text" name="SearchKey" autocomplete="off" placeholder="Search with teancher's name"/>
+        <input type="text" name="SearchKey" autocomplete="off" placeholder="Search with teancher's name" />
         <input type="submit" value="Search" />
     </form>
 

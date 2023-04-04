@@ -170,8 +170,53 @@ namespace Schooldb.Controllers
             //Return the final list of Teacher names
             return NewVar;
 
+        }
 
+        /// <summary>
+        /// Add a teacher to the mySQL database.
+        /// </summary>
+        /// <param name="NewTeacher">
+        /// An object with fields that map to the columns of the teachers table. Non-Deterministic.
+        /// </param>
+        /// <example>
+        /// POST: api/TeacherData/AddTeacher 
+        /// {
+        ///	"TeacherFname":"Yan Wing",
+        ///	"TeacherLname":"Pang",
+
+        /// }
+        /// </example>
+        [HttpPost]
+        [Route("api/TeacherData/AddTeacher")]
+        public string AddTeacher([FromBody] Teacher NewTeacher)
+
+        {
+            MySqlConnection Conn = School.AccessDatabase();
+
+            Conn.Open();
+
+
+            MySqlCommand Cmd = Conn.CreateCommand();
+
+            string query = "INSERT INTO Teachers (teacherfname, teacherlname, employeenumber, hiredate, salary) VALUES(@fname, @lname, 0, CURDATE(), 0)";
+
+            Cmd.CommandText = query;
+            Cmd.Parameters.AddWithValue("@fname", NewTeacher.TeacherFname);
+            Cmd.Parameters.AddWithValue("@lname", NewTeacher.TeacherLname);
+
+            Cmd.ExecuteNonQuery();
+
+            Conn.Close();
+
+            return "add Teacher";
 
         }
+
+
+
+
+
+
+
     }
 }
