@@ -42,7 +42,7 @@ namespace Schooldb.Controllers
 
         //POST: Teacher/Create 
         [HttpPost]
-        public ActionResult Create(string TeacherFname, string TeacherLname)
+        public ActionResult Create(string TeacherFname, string TeacherLname, string TeacherEmployeeNumber, decimal TeacherSalary)
         {
             TeacherDataController controller = new TeacherDataController();
 
@@ -52,10 +52,38 @@ namespace Schooldb.Controllers
 
             NewTeacher.TeacherLname = TeacherLname;
             
+            NewTeacher.TeacherEmployeeNumber = TeacherEmployeeNumber;
+            
+            NewTeacher.TeacherSalary = TeacherSalary;
+
             controller.AddTeacher(NewTeacher);
 
             return RedirectToAction("List");
         }
+
+        //GET: /Teacher/DeleteConfirm/{Teacherid} 
+        [HttpGet]
+        public ActionResult DeleteConfirm(int id)
+        {
+            TeacherDataController controller = new TeacherDataController();
+            Teacher SelectedTeacher = controller.FindTeachers(id);
+
+            return View(SelectedTeacher);
+
+        }
+
+
+        //POST: /Teacher/Delete/{id}
+        [HttpPost]
+        public ActionResult Delete(int id)
+        {
+            TeacherDataController controller = new TeacherDataController();
+
+            controller.DeleteTeacher(id);
+
+            return RedirectToAction("List");
+        }
+
 
     }
 }

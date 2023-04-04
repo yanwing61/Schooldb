@@ -183,7 +183,9 @@ namespace Schooldb.Controllers
         /// {
         ///	"TeacherFname":"Yan Wing",
         ///	"TeacherLname":"Pang",
-
+        ///	"TeacherEmployeeNumber": "T203",
+        ///	"TeacherHiredate": 2023-04-05 00:00:00,
+        ///	"TeacherSalary": 50.7;
         /// }
         /// </example>
         [HttpPost]
@@ -198,11 +200,13 @@ namespace Schooldb.Controllers
 
             MySqlCommand Cmd = Conn.CreateCommand();
 
-            string query = "INSERT INTO Teachers (teacherfname, teacherlname, employeenumber, hiredate, salary) VALUES(@fname, @lname, 0, CURDATE(), 0)";
+            string query = "INSERT INTO Teachers (teacherfname, teacherlname, employeenumber, hiredate, salary) VALUES(@fname, @lname, @employeeno, CURDATE(), @salary)";
 
             Cmd.CommandText = query;
             Cmd.Parameters.AddWithValue("@fname", NewTeacher.TeacherFname);
             Cmd.Parameters.AddWithValue("@lname", NewTeacher.TeacherLname);
+            Cmd.Parameters.AddWithValue("@employeeno", NewTeacher.TeacherEmployeeNumber);
+            Cmd.Parameters.AddWithValue("@salary", NewTeacher.TeacherSalary);
 
             Cmd.ExecuteNonQuery();
 
@@ -212,7 +216,33 @@ namespace Schooldb.Controllers
 
         }
 
+        /// <summary>
+        /// Deletes a teacher from the Database if the ID of that teacher exists.
+        /// </summary>
+        /// <param name="Teacherid">The ID of the teacher.</param>
+        /// <example>
+        /// POST: /api/TeacherData/DeleteTeacher/5
+        /// </example>
+        [HttpPost]
+        [Route("api/Teacherdata/deleteTeacher/{Teacherid}")]
+        public void DeleteTeacher(int Teacherid)
+        {
+            MySqlConnection Conn = School.AccessDatabase();
 
+            Conn.Open();
+
+            MySqlCommand Cmd = Conn.CreateCommand();
+
+            string query = "DELETE from Teachers WHERE Teacherid=@id";
+
+            Cmd.CommandText = query;
+            Cmd.Parameters.AddWithValue("id", Teacherid);
+            Cmd.ExecuteNonQuery();
+
+            Conn.Close();
+
+
+        }
 
 
 
