@@ -245,6 +245,45 @@ namespace Schooldb.Controllers
         }
 
 
+        /// <summary>
+        /// Update an teacher in the system
+        /// </summary>
+        /// <example>
+        /// POST: api/teacherdata/updateteacher/{teacherid}
+        /// POST DATA/ FORM DATA / REQUEST BODY
+        /// {
+        /// teacher title: 'France',
+        /// teacher body: 'It was hot'
+        /// }
+        /// communicate through get and post
+        /// curl -H "Content-Type: application/json" -d @teacher.json http://localhost:51326/api/teacherdata/updateteacher/78
+        /// </example>
+        [HttpPost]
+        [Route("api/teacherdata/updateteacher/{teacherid}")]
+        public void Updateteacher(int teacherid, [FromBody] Teacher Updatedteacher)
+        {
+            MySqlConnection Conn = School.AccessDatabase();
+
+            Conn.Open();
+
+            MySqlCommand Cmd = Conn.CreateCommand();
+
+            string query = "update teachers set teacherfname=@fname, teacherlname=@lname, employeenumber=@employeeno, hiredate=@hiredate, salary=@salary where teacherid=@id";
+
+            Cmd.CommandText = query;
+
+            Cmd.Parameters.AddWithValue("@fname", Updatedteacher.TeacherFname);
+            Cmd.Parameters.AddWithValue("@lname", Updatedteacher.TeacherLname);
+            Cmd.Parameters.AddWithValue("@employeeno", Updatedteacher.TeacherEmployeeNumber);
+            Cmd.Parameters.AddWithValue("@hiredate", Updatedteacher.TeacherHiredate);
+            Cmd.Parameters.AddWithValue("@salary", Updatedteacher.TeacherSalary);
+            Cmd.Parameters.AddWithValue("@id", teacherid);
+
+            Cmd.ExecuteNonQuery();
+
+            Conn.Close();
+
+        }
 
 
 

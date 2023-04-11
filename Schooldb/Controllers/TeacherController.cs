@@ -85,5 +85,31 @@ namespace Schooldb.Controllers
         }
 
 
+        //GET: /Teacher/Update/{teacherid}
+        public ActionResult Update(int id)
+        {
+            TeacherDataController controller = new TeacherDataController();
+            Teacher SelectedTeacher = controller.FindTeachers(id);
+            return View(SelectedTeacher);
+        }
+
+        //POST: /Teacher/Edit/{teacherid}
+        public ActionResult Edit(int id, string TeacherFname, string TeacherLname, DateTime TeacherHiredate, string TeacherEmployeeNumber, decimal TeacherSalary)
+        {
+            Teacher UpdateTeacher = new Teacher();
+            UpdateTeacher.TeacherLname = TeacherLname;
+            UpdateTeacher.TeacherFname = TeacherFname;
+            UpdateTeacher.TeacherHiredate = TeacherHiredate;
+            UpdateTeacher.TeacherEmployeeNumber = TeacherEmployeeNumber;
+            UpdateTeacher.TeacherSalary = TeacherSalary;
+
+            TeacherDataController controller = new TeacherDataController();
+            controller.Updateteacher(id, UpdateTeacher);
+
+            return RedirectToAction("Show/"+id);
+
+        }
+
+
     }
 }
