@@ -246,14 +246,17 @@ namespace Schooldb.Controllers
 
 
         /// <summary>
-        /// Update an teacher in the system
+        /// Update an teacher in the system.
         /// </summary>
         /// <example>
         /// POST: api/teacherdata/updateteacher/{teacherid}
         /// POST DATA/ FORM DATA / REQUEST BODY
         /// {
-        /// teacher title: 'France',
-        /// teacher body: 'It was hot'
+        /// teacher first name: 'Dana',
+        /// teacher last name: 'Ford',
+        /// teacher id: '8',
+        /// teacher employee number: 'T401',
+        /// teacher salary: '71.15';
         /// }
         /// communicate through get and post
         /// curl -H "Content-Type: application/json" -d @teacher.json http://localhost:51326/api/teacherdata/updateteacher/78
