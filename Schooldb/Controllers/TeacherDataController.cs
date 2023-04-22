@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
@@ -270,6 +270,17 @@ namespace Schooldb.Controllers
             Conn.Open();
 
             MySqlCommand Cmd = Conn.CreateCommand();
+            
+           // Validate required fields is empty or not
+            if (string.IsNullOrEmpty(Updatedteacher.TeacherFname) ||
+                string.IsNullOrEmpty(Updatedteacher.TeacherLname) ||
+                string.IsNullOrEmpty(Updatedteacher.TeacherEmployeeNumber) ||
+                Updatedteacher.TeacherHiredate == default(DateTime) ||
+                Updatedteacher.TeacherSalary == decimal.MinValue)
+            {
+                // Return an error response indicating that one or more required fields is/are missing
+                return BadRequest("Please update all the required fields.");
+            }
 
             string query = "update teachers set teacherfname=@fname, teacherlname=@lname, employeenumber=@employeeno, hiredate=@hiredate, salary=@salary where teacherid=@id";
 
